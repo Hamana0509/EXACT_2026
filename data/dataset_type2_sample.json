@@ -1,0 +1,212 @@
+[
+  {
+    "id": "TD001",
+    "question": "Calculate the equivalent resistance of two resistors R1 = 4 ohm and R2 = 6 ohm connected in parallel.",
+    "cot": "Step 1: Recall the parallel-resistance formula: 1/R = 1/R1 + 1/R2.\nStep 2: Substitute: 1/R = 1/4 + 1/6 = 3/12 + 2/12 = 5/12 (1/ohm).\nStep 3: Invert: R = 12/5 = 2.4 ohm.",
+    "answer": "2.4",
+    "unit": "ohm"
+  },
+  {
+    "id": "TD002",
+    "question": "A capacitor with capacitance C = 10 microfarads is charged to a voltage V = 3 kV. How much energy is stored in the capacitor?",
+    "cot": "Step 1: Recall the capacitor energy formula: E = 0.5 * C * V^2.\nStep 2: Convert units: C = 10e-6 F, V = 3e3 V.\nStep 3: Compute V^2 = 9e6 V^2.\nStep 4: E = 0.5 * 10e-6 * 9e6 = 0.5 * 90 = 45 J.",
+    "answer": "45",
+    "unit": "J"
+  },
+  {
+    "id": "TD003",
+    "question": "In a single-loop DC circuit with EMF e = 12 V, internal resistance r = 1 ohm, and external resistor R = 5 ohm, find the terminal voltage across R.",
+    "cot": "Step 1: Apply Kirchhoff's voltage law around the loop: e = I * (R + r), so I = e / (R + r).\nStep 2: I = 12 / (5 + 1) = 12 / 6 = 2 A.\nStep 3: Terminal voltage across R: V_R = I * R = 2 * 5 = 10 V.",
+    "answer": "10",
+    "unit": "V"
+  },
+  {
+    "id": "TD004",
+    "question": "Two batteries are connected in parallel (same polarity) across a common load. Battery A has EMF e1 = 10 V and internal resistance r1 = 2 ohm; Battery B has EMF e2 = 4 V and internal resistance r2 = 1 ohm. The load resistor is R = 2 ohm. Find the current through R.",
+    "cot": "Step 1: Apply Millman's theorem: the common terminal voltage is V_t = (e1/r1 + e2/r2) / (1/r1 + 1/r2 + 1/R).\nStep 2: Numerator: 10/2 + 4/1 = 5 + 4 = 9 (V/ohm).\nStep 3: Denominator: 1/2 + 1/1 + 1/2 = 2 (1/ohm).\nStep 4: V_t = 9 / 2 = 4.5 V.\nStep 5: Current through the load: I_R = V_t / R = 4.5 / 2 = 2.25 A.\n(Equivalent two-mesh KVL with mesh currents I_A and I_B from each branch gives I_A = 2.75 A, I_B = -0.5 A, summing to I_R = 2.25 A.)",
+    "answer": "2.25",
+    "unit": "A"
+  },
+  {
+    "id": "TD005",
+    "question": "Twelve identical resistors of resistance R = 6 ohm each are connected to form the edges of a cube. Find the equivalent resistance between two opposite corners (the body diagonal of the cube).",
+    "cot": "Step 1: Inject current I at one corner. By the three-fold rotational symmetry about the body diagonal, the current splits equally into the three edges leaving that corner: I/3 in each.\nStep 2: At the next layer, each of the three nodes carries current I/3. By symmetry the current splits equally between its two outgoing edges (toward the middle nodes), giving I/6 in each of the six middle-layer edges.\nStep 3: At each of the three nodes adjacent to the destination corner, two streams of I/6 merge into one outgoing edge of I/3. Three such edges deliver the total current I to the destination corner.\nStep 4: Sum the voltage drops along any path through these three layers: V = (I/3)*R + (I/6)*R + (I/3)*R = (5/6)*I*R.\nStep 5: Equivalent resistance: R_eq = V/I = 5R/6 = 5*6/6 = 5 ohm.",
+    "answer": "5",
+    "unit": "ohm"
+  },
+  {
+    "id": "TD006",
+    "question": "An infinite ladder network is built from identical resistors of value R = 1 ohm: each section adds one R in series along the top wire and one R in parallel between the two rails. Compute the equivalent resistance R_inf seen at the input terminals.",
+    "cot": "Step 1: The network is self-similar: removing the first section leaves an identical infinite ladder, so R_inf = R + (R || R_inf).\nStep 2: Substitute R || R_inf = R*R_inf/(R + R_inf): R_inf = R + R*R_inf/(R + R_inf).\nStep 3: Multiply both sides by (R + R_inf): R_inf*(R + R_inf) = R*(R + R_inf) + R*R_inf.\nStep 4: Expand and simplify: R*R_inf + R_inf^2 = R^2 + R*R_inf + R*R_inf, giving R_inf^2 - R*R_inf - R^2 = 0.\nStep 5: Quadratic formula (positive root): R_inf = R*(1 + sqrt(5))/2.\nStep 6: With R = 1 ohm: R_inf = (1 + sqrt(5))/2 ≈ (1 + 2.2361)/2 ≈ 1.618 ohm (the golden ratio).",
+    "answer": "1.618",
+    "unit": "ohm"
+  },
+  {
+    "id": "TD007",
+    "question": "A capacitor C1 = 4 microfarads is charged to V0 = 100 V, then disconnected from the source and connected in parallel to an initially uncharged capacitor C2 = 6 microfarads. How much electrical energy is dissipated during the charge redistribution?",
+    "cot": "Step 1: Initial energy (only on C1): U_i = 0.5 * C1 * V0^2 = 0.5 * 4e-6 * 100^2 = 0.02 J = 20 mJ.\nStep 2: Total charge is conserved when the switch closes: Q = C1 * V0 = 4e-6 * 100 = 4e-4 C.\nStep 3: After redistribution both capacitors share the same final voltage: V_f = Q / (C1 + C2) = 4e-4 / 10e-6 = 40 V.\nStep 4: Final energy: U_f = 0.5 * (C1 + C2) * V_f^2 = 0.5 * 10e-6 * 40^2 = 0.008 J = 8 mJ.\nStep 5: Energy lost (as heat in any nonzero resistance and/or radiated): dU = U_i - U_f = 20 - 8 = 12 mJ.",
+    "answer": "12",
+    "unit": "mJ"
+  },
+  {
+    "id": "TD008",
+    "question": "An initially uncharged capacitor C = 10 microfarads is charged to its final voltage by an ideal V0 = 12 V battery through a series resistor. What is the total heat dissipated in the resistor during the entire charging process?",
+    "cot": "Step 1: Total charge moved through the circuit: Q = C * V0 = 10e-6 * 12 = 1.2e-4 C.\nStep 2: Energy delivered by the battery (constant EMF, charge Q): W_bat = Q * V0 = 1.2e-4 * 12 = 1.44e-3 J.\nStep 3: Energy ultimately stored in the capacitor: U_C = 0.5 * C * V0^2 = 0.5 * 10e-6 * 144 = 7.2e-4 J.\nStep 4: By energy conservation, the rest is dissipated in R: W_R = W_bat - U_C = 1.44e-3 - 0.72e-3 = 7.2e-4 J = 0.72 mJ.\n(Note: this result is independent of the value of R — the heat is exactly half the energy supplied by the battery.)",
+    "answer": "0.72",
+    "unit": "mJ"
+  },
+  {
+    "id": "TD009",
+    "question": "Inside a parallel-plate vacuum capacitor the uniform electric field is E = 1.0e6 V/m. Compute the electrostatic pressure (force per unit area) attracting the plates toward each other. Use epsilon_0 = 8.85e-12 F/m.",
+    "cot": "Step 1: Each plate sits in the field produced only by the other plate, which has magnitude E/2.\nStep 2: Surface charge density on a plate: sigma = epsilon_0 * E.\nStep 3: Force per unit area on a plate: P = sigma * (E/2) = (epsilon_0 * E) * (E/2) = 0.5 * epsilon_0 * E^2 (this also equals the electric-field energy density u).\nStep 4: P = 0.5 * 8.85e-12 * (1e6)^2 = 0.5 * 8.85e-12 * 1e12 = 4.425 N/m^2.",
+    "answer": "4.425",
+    "unit": "Pa"
+  },
+  {
+    "id": "TD010",
+    "question": "A point charge q1 = -10 nC is placed at x = 0 and a point charge q2 = +10 nC is placed at x = 4 cm on the x-axis. Find the magnitude of the net electric field on the x-axis at the point P located at x = 10 cm. Use k = 9.0e9 N*m^2/C^2.",
+    "cot": "Step 1: Distance from q2 (positive) to P: r2 = 10 - 4 = 6 cm = 0.06 m. Distance from q1 (negative) to P: r1 = 10 cm = 0.10 m.\nStep 2: Field from q2 at P points away from q2 (positive charge), i.e. in the +x direction: E2 = k*|q2|/r2^2 = 9e9 * 10e-9 / 0.0036 = 25000 N/C.\nStep 3: Field from q1 at P points toward q1 (negative charge attracts a positive test charge), i.e. in the -x direction: E1 = k*|q1|/r1^2 = 9e9 * 10e-9 / 0.01 = 9000 N/C.\nStep 4: The two contributions are anti-parallel along the axis. Net field magnitude: E = E2 - E1 = 25000 - 9000 = 16000 N/C, directed in +x.",
+    "answer": "16000",
+    "unit": "N/C"
+  },
+  {
+    "id": "TD011",
+    "question": "Three identical point charges q = +2 microcoulombs sit at the vertices of an equilateral triangle of side a = 10 cm. Find the magnitude of the net Coulomb force on any one of the charges. Use k = 9.0e9 N*m^2/C^2.",
+    "cot": "Step 1: Force exerted on the chosen charge by each of the other two (Coulomb's law): F = k*q^2/a^2 = 9e9 * (2e-6)^2 / (0.10)^2 = 9e9 * 4e-12 / 0.01 = 3.6 N. Both forces are repulsive, pointing away from the corresponding neighbor.\nStep 2: At the chosen vertex the two force vectors make an interior angle equal to 60 deg (the apex angle of an equilateral triangle).\nStep 3: Use the parallelogram law for the resultant: F_net = sqrt(F^2 + F^2 + 2*F^2*cos(60 deg)) = sqrt(2*F^2 + F^2) = F*sqrt(3).\nStep 4: F_net = 3.6 * sqrt(3) ≈ 3.6 * 1.7321 ≈ 6.235 N. The direction is along the bisector of the opposite side, pointing outward.",
+    "answer": "6.235",
+    "unit": "N"
+  },
+  {
+    "id": "TD012",
+    "question": "A parallel-plate vacuum capacitor has plate area A = 0.020 m^2 and plate separation d = 6 mm. A dielectric slab of relative permittivity k = 3 and thickness t = 3 mm is inserted parallel to the plates, leaving a 3 mm air gap on the other side. Find the new capacitance. Use epsilon_0 = 8.85e-12 F/m.",
+    "cot": "Step 1: Treat the filled gap as two capacitors in series: an air-only section of thickness (d - t) = 3 mm, and a dielectric section of thickness t = 3 mm.\nStep 2: Air-section capacitance: C_air = epsilon_0 * A / (d - t) = 8.85e-12 * 0.020 / 0.003 = 5.9e-11 F.\nStep 3: Dielectric-section capacitance: C_diel = k * epsilon_0 * A / t = 3 * 8.85e-12 * 0.020 / 0.003 = 1.77e-10 F = 3 * C_air.\nStep 4: Series combination: 1/C = 1/C_air + 1/C_diel = (1 + 1/3) / C_air = (4/3) / C_air, so C = (3/4) * C_air.\nStep 5: C = 0.75 * 5.9e-11 = 4.425e-11 F = 44.25 pF.",
+    "answer": "44.25",
+    "unit": "pF"
+  },
+  {
+    "id": "TD013",
+    "question": "Two concentric spherical conducting shells form a vacuum spherical capacitor. The inner shell has radius a = 2 cm and the outer shell has radius b = 5 cm. Find the capacitance. Use 1/(4*pi*epsilon_0) = k = 9.0e9 N*m^2/C^2.",
+    "cot": "Step 1: Spherical-capacitor formula (charge +Q on inner, -Q on outer): C = 4*pi*epsilon_0 * a*b / (b - a) = (a*b) / (k*(b - a)).\nStep 2: a*b = 0.02 * 0.05 = 1.0e-3 m^2.\nStep 3: b - a = 0.05 - 0.02 = 0.03 m.\nStep 4: k*(b - a) = 9.0e9 * 0.03 = 2.7e8 ohm*m.\nStep 5: C = 1.0e-3 / 2.7e8 ≈ 3.704e-12 F = 3.704 pF.",
+    "answer": "3.704",
+    "unit": "pF"
+  },
+  {
+    "id": "TD014",
+    "question": "A 10 V battery (negligible internal resistance) is connected through R1 = 4 kohm to a parallel combination of R2 = 6 kohm and an initially uncharged capacitor C = 100 microfarads. Find the time constant for charging the capacitor.",
+    "cot": "Step 1: To find the charging time constant, replace the source/resistor network with its Thevenin equivalent as seen from the capacitor's terminals.\nStep 2: With the ideal battery shorted, the Thevenin resistance is R1 in parallel with R2: R_th = R1*R2/(R1+R2) = 4*6/(4+6) = 24/10 = 2.4 kohm = 2400 ohm.\nStep 3: Time constant: tau = R_th * C = 2400 * 100e-6 = 0.24 s.",
+    "answer": "0.24",
+    "unit": "s"
+  },
+  {
+    "id": "TD015",
+    "question": "A thin uniformly charged ring of radius R = 4 cm carries total charge Q = 10 nC. Find the magnitude of the electric field on the ring's symmetry axis at distance z = 3 cm from the center of the ring. Use k = 9.0e9 N*m^2/C^2.",
+    "cot": "Step 1: By symmetry, the on-axis field is parallel to the axis: E(z) = k*Q*z / (z^2 + R^2)^(3/2).\nStep 2: z^2 + R^2 = 0.03^2 + 0.04^2 = 9e-4 + 1.6e-3 = 2.5e-3 m^2.\nStep 3: sqrt(z^2 + R^2) = sqrt(2.5e-3) = 0.05 m, so (z^2 + R^2)^(3/2) = 0.05 * 2.5e-3 = 1.25e-4 m^3.\nStep 4: Numerator: k*Q*z = 9e9 * 10e-9 * 0.03 = 2.7.\nStep 5: E = 2.7 / 1.25e-4 = 21600 N/C.",
+    "answer": "21600",
+    "unit": "N/C"
+  },
+  {
+    "id": "TD016",
+    "question": "Three resistors R1 = 6 ohm, R2 = 12 ohm, and R3 = 4 ohm are connected in parallel, and that combination is connected in series with a fourth resistor R4 = 5 ohm. Find the equivalent resistance of the whole network.",
+    "cot": "Step 1: Equivalent of the three parallel resistors: 1/R_p = 1/R1 + 1/R2 + 1/R3.\nStep 2: Common denominator 12: 1/R_p = 2/12 + 1/12 + 3/12 = 6/12 = 1/2, so R_p = 2 ohm.\nStep 3: Series with R4: R_eq = R_p + R4 = 2 + 5 = 7 ohm.",
+    "answer": "7",
+    "unit": "ohm"
+  },
+  {
+    "id": "TD017",
+    "question": "A resistor R = 100 ohm has a steady voltage V = 12 V across it. How much electrical power is dissipated in the resistor?",
+    "cot": "Step 1: Power dissipated by a resistor: P = V^2 / R.\nStep 2: V^2 = 144 V^2.\nStep 3: P = 144 / 100 = 1.44 W.",
+    "answer": "1.44",
+    "unit": "W"
+  },
+  {
+    "id": "TD018",
+    "question": "In a voltage divider, V_in = 24 V is applied across two resistors R1 = 4 kohm and R2 = 8 kohm in series. Find the output voltage measured across R2.",
+    "cot": "Step 1: Voltage-divider formula: V_out = V_in * R2 / (R1 + R2).\nStep 2: R1 + R2 = 12 kohm.\nStep 3: V_out = 24 * 8 / 12 = 24 * (2/3) = 16 V.",
+    "answer": "16",
+    "unit": "V"
+  },
+  {
+    "id": "TD019",
+    "question": "A Wheatstone bridge has known arms R1 = 100 ohm, R2 = 200 ohm, R3 = 150 ohm. Find the value of the fourth arm R4 that balances the bridge (zero galvanometer current).",
+    "cot": "Step 1: Balance condition: R1 / R2 = R3 / R4.\nStep 2: Solve for R4: R4 = R2 * R3 / R1.\nStep 3: R4 = 200 * 150 / 100 = 30000 / 100 = 300 ohm.",
+    "answer": "300",
+    "unit": "ohm"
+  },
+  {
+    "id": "TD020",
+    "question": "A real battery has EMF e = 20 V and internal resistance r = 4 ohm. A variable load resistor R_L is connected across its terminals. What is the maximum power that can be delivered to R_L?",
+    "cot": "Step 1: Maximum-power-transfer theorem: power into R_L is maximized when R_L = r.\nStep 2: At R_L = r the loop current is I = e / (R_L + r) = e / (2r) = 20 / 8 = 2.5 A.\nStep 3: P_max = I^2 * R_L = 2.5^2 * 4 = 6.25 * 4 = 25 W. Equivalently P_max = e^2 / (4*r) = 400 / 16 = 25 W.",
+    "answer": "25",
+    "unit": "W"
+  },
+  {
+    "id": "TD021",
+    "question": "A capacitor C = 500 microfarads, initially charged to V0 = 10 V, discharges through a resistor R = 2 kohm. What is the voltage across the capacitor at t = 2 s?",
+    "cot": "Step 1: Time constant: tau = R * C = 2e3 * 500e-6 = 1 s.\nStep 2: Discharging law: V(t) = V0 * exp(-t / tau).\nStep 3: At t = 2 s: V(2) = 10 * exp(-2).\nStep 4: exp(-2) ≈ 0.1353, so V(2) ≈ 10 * 0.1353 ≈ 1.35 V.",
+    "answer": "1.35",
+    "unit": "V"
+  },
+  {
+    "id": "TD022",
+    "question": "A galvanometer with full-scale deflection current Ig = 10 mA and internal resistance Rg = 99 ohm is to be converted into an ammeter that reads up to I = 1 A at full scale. What shunt resistance R_s should be connected in parallel with the galvanometer?",
+    "cot": "Step 1: At full scale Ig flows through the meter and (I - Ig) flows through the shunt. The two are in parallel so they share the same voltage: Ig * Rg = (I - Ig) * R_s.\nStep 2: Solve: R_s = Ig * Rg / (I - Ig).\nStep 3: I - Ig = 1 - 0.01 = 0.99 A.\nStep 4: R_s = 0.01 * 99 / 0.99 = 0.99 / 0.99 = 1 ohm.",
+    "answer": "1",
+    "unit": "ohm"
+  },
+  {
+    "id": "TD023",
+    "question": "Two batteries are connected in a single loop in opposition: e1 = 12 V with internal resistance r1 = 1 ohm and e2 = 6 V with internal resistance r2 = 0.5 ohm, joined by an external resistor R = 4.5 ohm. Find the current in the loop.",
+    "cot": "Step 1: Net EMF around the loop (subtracting opposing EMF): e_net = e1 - e2 = 12 - 6 = 6 V.\nStep 2: Total loop resistance: R_total = R + r1 + r2 = 4.5 + 1 + 0.5 = 6 ohm.\nStep 3: Kirchhoff's voltage law: I = e_net / R_total = 6 / 6 = 1 A.",
+    "answer": "1",
+    "unit": "A"
+  },
+  {
+    "id": "TD024",
+    "question": "Two point charges q1 = +2 microcoulombs and q2 = -3 microcoulombs are placed 0.30 m apart in vacuum. Compute the magnitude of the Coulomb force between them. Use k = 9.0e9 N*m^2/C^2.",
+    "cot": "Step 1: Coulomb's law: F = k * |q1 * q2| / r^2.\nStep 2: |q1 * q2| = 2e-6 * 3e-6 = 6e-12 C^2.\nStep 3: r^2 = 0.30^2 = 0.09 m^2.\nStep 4: F = 9.0e9 * 6e-12 / 0.09 = 0.054 / 0.09 = 0.6 N (attractive, since signs are opposite).",
+    "answer": "0.6",
+    "unit": "N"
+  },
+  {
+    "id": "TD025",
+    "question": "A point charge q = +5 microcoulombs sits at the origin in vacuum. Find the magnitude of the electric field at a point 0.50 m away. Use k = 9.0e9 N*m^2/C^2.",
+    "cot": "Step 1: Field of a point charge: E = k * |q| / r^2.\nStep 2: r^2 = 0.50^2 = 0.25 m^2.\nStep 3: E = 9.0e9 * 5e-6 / 0.25 = 45000 / 0.25 = 180000 N/C.",
+    "answer": "180000",
+    "unit": "N/C"
+  },
+  {
+    "id": "TD026",
+    "question": "Charge q1 = +4 microcoulombs is placed at x = 0 and charge q2 = -1 microcoulomb is placed at x = 0.30 m on the x-axis. Find the magnitude of the net electric field at the point P located at x = 0.10 m. Use k = 9.0e9 N*m^2/C^2.",
+    "cot": "Step 1: Distance from q1 to P: r1 = 0.10 m. Distance from q2 to P: r2 = 0.20 m.\nStep 2: Field from q1 (positive) at P points away from q1, i.e. toward +x. Magnitude: E1 = k*q1/r1^2 = 9e9 * 4e-6 / 0.01 = 3.6e6 N/C.\nStep 3: Field from q2 (negative) at P points toward q2, which is in the +x direction relative to P. Magnitude: E2 = k*|q2|/r2^2 = 9e9 * 1e-6 / 0.04 = 2.25e5 N/C.\nStep 4: Both contributions point in +x, so they add: E_net = 3.6e6 + 0.225e6 = 3.825e6 N/C.",
+    "answer": "3825000",
+    "unit": "N/C"
+  },
+  {
+    "id": "TD027",
+    "question": "Two capacitors C1 = 4 microfarads and C2 = 12 microfarads are connected in series. Find the equivalent capacitance.",
+    "cot": "Step 1: Series-capacitance formula: 1/C_eq = 1/C1 + 1/C2.\nStep 2: 1/C_eq = 1/4 + 1/12 = 3/12 + 1/12 = 4/12 = 1/3.\nStep 3: C_eq = 3 microfarads.",
+    "answer": "3",
+    "unit": "microfarad"
+  },
+  {
+    "id": "TD028",
+    "question": "Capacitor C1 = 6 microfarads is connected in parallel with capacitor C2 = 2 microfarads, and that combination is connected in series with capacitor C3 = 8 microfarads. Find the equivalent capacitance of the whole network.",
+    "cot": "Step 1: Parallel branch first: C_p = C1 + C2 = 6 + 2 = 8 microfarads.\nStep 2: Then series with C3: 1/C_eq = 1/C_p + 1/C3 = 1/8 + 1/8 = 2/8 = 1/4.\nStep 3: C_eq = 4 microfarads.",
+    "answer": "4",
+    "unit": "microfarad"
+  },
+  {
+    "id": "TD029",
+    "question": "A parallel-plate air-gap capacitor has plate area A = 0.020 m^2 and plate separation d = 0.50 mm. Compute its capacitance. Use epsilon_0 = 8.85e-12 F/m.",
+    "cot": "Step 1: Parallel-plate formula: C = epsilon_0 * A / d.\nStep 2: Convert d to meters: d = 0.50 mm = 5.0e-4 m.\nStep 3: Numerator: 8.85e-12 * 0.020 = 1.77e-13 F*m.\nStep 4: C = 1.77e-13 / 5.0e-4 = 3.54e-10 F = 354 pF.",
+    "answer": "354",
+    "unit": "pF"
+  },
+  {
+    "id": "TD030",
+    "question": "Two capacitors C1 = 4 microfarads and C2 = 6 microfarads are connected in series across a 12 V battery (steady state). What is the charge on each capacitor?",
+    "cot": "Step 1: Capacitors in series carry the same charge Q on each.\nStep 2: Equivalent capacitance: C_eq = (C1 * C2) / (C1 + C2) = (4 * 6) / (4 + 6) = 24 / 10 = 2.4 microfarads.\nStep 3: Total charge supplied by battery: Q = C_eq * V = 2.4e-6 * 12 = 2.88e-5 C = 28.8 microcoulombs.\nStep 4: Each capacitor (in series) has the same charge Q = 28.8 microcoulombs.",
+    "answer": "28.8",
+    "unit": "microcoulomb"
+  }
+]

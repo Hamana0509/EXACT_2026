@@ -1,0 +1,331 @@
+[
+  {
+    "premises-NL": [
+      "If a student passes all required courses with a GPA of at least 3.0, they qualify for the merit scholarship.",
+      "Student A has passed all required courses.",
+      "Student A has a GPA of 3.5."
+    ],
+    "premises-FOL": [
+      "ForAll(s, (PassesAllRequired(s) ∧ GPA(s, x) ∧ x >= 3.0) -> MeritScholarship(s))",
+      "PassesAllRequired(A)",
+      "GPA(A, 3.5)"
+    ],
+    "questions": [
+      "Does Student A qualify for the merit scholarship?\nA. Yes\nB. No\nC. Uncertain"
+    ],
+    "answers": ["A"],
+    "explanation": [
+      "By premises 2 and 3, Student A passes all required courses and has GPA 3.5, which is >= 3.0. Universally instantiating premise 1 with s = A gives MeritScholarship(A). Therefore the answer is Yes (option A)."
+    ]
+  },
+  {
+    "premises-NL": [
+      "Course CS500 has CS300 as a prerequisite.",
+      "A student may enroll in CS500 only if they have completed CS300.",
+      "Student B has not yet completed CS300.",
+      "Student B has registered for CS500 next semester."
+    ],
+    "premises-FOL": [
+      "Prereq(CS500, CS300)",
+      "ForAll(s, EnrollAllowed(s, CS500) <-> Completed(s, CS300))",
+      "Not(Completed(B, CS300))",
+      "Registered(B, CS500)"
+    ],
+    "questions": [
+      "Is Student B's registration in CS500 allowed under the rules?"
+    ],
+    "answers": ["No"],
+    "explanation": [
+      "Premise 3 states Not(Completed(B, CS300)). By the biconditional in premise 2, this entails Not(EnrollAllowed(B, CS500)). The registration recorded in premise 4 is therefore not allowed by the rules."
+    ]
+  },
+  {
+    "premises-NL": [
+      "A student is placed on academic probation if their semester GPA falls below 2.0.",
+      "A student is dismissed if they are on academic probation for two consecutive semesters.",
+      "Student C had GPA 1.8 in Fall 2025.",
+      "Student C had GPA 1.7 in Spring 2026.",
+      "Fall 2025 and Spring 2026 are consecutive semesters."
+    ],
+    "premises-FOL": [
+      "ForAll(s, ForAll(t, (GPA(s, t, g) ∧ g < 2.0) -> Probation(s, t)))",
+      "ForAll(s, (Probation(s, t1) ∧ Probation(s, t2) ∧ Consecutive(t1, t2)) -> Dismissed(s))",
+      "GPA(C, Fall2025, 1.8)",
+      "GPA(C, Spring2026, 1.7)",
+      "Consecutive(Fall2025, Spring2026)"
+    ],
+    "questions": [
+      "What is Student C's current academic status, and why?"
+    ],
+    "answers": ["Dismissed"],
+    "explanation": [
+      "Applying premise 1 to premise 3 gives Probation(C, Fall2025); applying it to premise 4 gives Probation(C, Spring2026). With premise 5 stating Consecutive(Fall2025, Spring2026), premise 2 entails Dismissed(C). Hence Student C's status is 'Dismissed'."
+    ]
+  },
+  {
+    "premises-NL": [
+      "A student qualifies for the merit scholarship if their cumulative GPA is at least 3.6 and they have completed at least 60 credits.",
+      "A student qualifies for the need-based scholarship if their declared family income is below the poverty threshold.",
+      "A student may receive at most one scholarship per academic year.",
+      "If a student qualifies for both scholarships, the merit scholarship is awarded by default unless the student opts in writing for the need-based one.",
+      "Student D has cumulative GPA 3.7 and 72 completed credits.",
+      "Student D's family income is below the poverty threshold.",
+      "Student D has not submitted any written opt-in form."
+    ],
+    "premises-FOL": [
+      "ForAll(s, (GPA(s) >= 3.6 ∧ Credits(s) >= 60) -> QualifiesMerit(s))",
+      "ForAll(s, BelowPoverty(s) -> QualifiesNeed(s))",
+      "ForAll(s, Not(Receives(s, Merit) ∧ Receives(s, Need)))",
+      "ForAll(s, (QualifiesMerit(s) ∧ QualifiesNeed(s) ∧ Not(OptIn(s, Need))) -> Receives(s, Merit))",
+      "GPA(D) = 3.7 ∧ Credits(D) = 72",
+      "BelowPoverty(D)",
+      "Not(OptIn(D, Need))"
+    ],
+    "questions": [
+      "Which scholarship will Student D receive this academic year?\nA. Merit scholarship\nB. Need-based scholarship\nC. Both\nD. Neither"
+    ],
+    "answers": ["A"],
+    "explanation": [
+      "From premise 5: GPA 3.7 >= 3.6 and credits 72 >= 60, so by premise 1, QualifiesMerit(D). From premises 6 and 2, QualifiesNeed(D). Both qualifying triggers premise 4: with no opt-in (premise 7), the default award is the merit scholarship. Premise 3 ensures at most one. Hence Student D receives the merit scholarship — option A."
+    ]
+  },
+  {
+    "premises-NL": [
+      "A graduate student may defend their thesis only if they have completed all coursework, passed the comprehensive exam, and obtained the advisor's signed approval.",
+      "Comprehensive exam results are valid for 24 months from the date of passing.",
+      "Student E completed all coursework in May 2025.",
+      "Student E passed the comprehensive exam in March 2024.",
+      "Student E's advisor has signed the approval form.",
+      "Student E has scheduled a thesis defense for June 2026."
+    ],
+    "premises-FOL": [
+      "ForAll(s, MayDefend(s) <-> (CourseworkDone(s) ∧ ExamValid(s) ∧ AdvisorApproved(s)))",
+      "ForAll(s, ForAll(t, (PassedExam(s, t) ∧ MonthsBetween(t, now) <= 24) -> ExamValid(s)))",
+      "CourseworkDone(E, May2025)",
+      "PassedExam(E, March2024)",
+      "AdvisorApproved(E)",
+      "DefenseScheduled(E, June2026)"
+    ],
+    "questions": [
+      "Is Student E permitted to defend in June 2026?"
+    ],
+    "answers": ["No"],
+    "explanation": [
+      "From March 2024 to June 2026 is 27 months, which exceeds the 24-month validity window in premise 2, so ExamValid(E) is false at the scheduled defense. The conjunction in premise 1 therefore fails, and MayDefend(E) is false. The other two conditions (coursework done, advisor approved) are met but cannot rescue the disqualification on the exam validity."
+    ]
+  },
+  {
+    "premises-NL": [
+      "The maximum standard course load is 18 credits per semester.",
+      "A student may exceed the standard course load up to 21 credits if their GPA in the previous semester was at least 3.5 OR they receive special approval from the academic dean.",
+      "Student F enrolled in 20 credits this semester.",
+      "Student F's GPA last semester was 3.2."
+    ],
+    "premises-FOL": [
+      "ForAll(s, ForAll(c, (Enrolled(s, c) ∧ c > 18) -> NeedsWaiver(s)))",
+      "ForAll(s, (PrevGPA(s) >= 3.5 ∨ DeanApproval(s)) -> WaiverGranted(s))",
+      "Enrolled(F, 20)",
+      "PrevGPA(F) = 3.2"
+    ],
+    "questions": [
+      "Is Student F's enrollment allowed under the rules?\nA. Yes\nB. No\nC. Uncertain"
+    ],
+    "answers": ["C"],
+    "explanation": [
+      "20 > 18 so the standard cap is exceeded (premise 1) and a waiver is needed. Premise 2 gives two disjunctive routes: GPA 3.2 < 3.5 fails the first, but the premises say nothing about whether the dean has granted approval. The premises neither entail nor refute DeanApproval(F), so the enrollment is neither provably allowed nor provably disallowed. The answer is Uncertain (C)."
+    ]
+  },
+  {
+    "premises-NL": [
+      "A student may retake a failed course at most twice.",
+      "If a student fails the same course three times, they are dismissed from the program.",
+      "A retake replaces the original grade only if the new grade is higher.",
+      "Student G failed CS200 in Fall 2024, retook and failed in Spring 2025, retook and failed again in Fall 2025."
+    ],
+    "premises-FOL": [
+      "ForAll(s, ForAll(c, RetakesAllowed(s, c) <= 2))",
+      "ForAll(s, ForAll(c, FailureCount(s, c) >= 3 -> Dismissed(s))",
+      "ForAll(s, ForAll(c, ForAll(g_old, ForAll(g_new, (Retake(s, c, g_new) ∧ g_new > g_old) -> ReplacedGrade(s, c, g_new))))",
+      "FailureCount(G, CS200) = 3"
+    ],
+    "questions": [
+      "What is Student G's status with respect to the program?"
+    ],
+    "answers": ["Dismissed"],
+    "explanation": [
+      "Premise 4 records three failures of CS200 by G. Premise 2 directly entails Dismissed(G) once FailureCount reaches 3. The retake-replacement rule (premise 3) is irrelevant since each attempt was a failure. Therefore G is dismissed."
+    ]
+  },
+  {
+    "premises-NL": [
+      "A first academic-integrity violation results in a written warning.",
+      "A second violation in the same program results in a one-semester suspension.",
+      "A third violation results in expulsion.",
+      "Violations from a different program at another institution do not count toward this program's escalation.",
+      "Student H received a written warning in 2024 at this university.",
+      "Student H committed a violation at a previous institution in 2023.",
+      "Student H has just been found responsible for a new violation at this university in 2026."
+    ],
+    "premises-FOL": [
+      "ForAll(s, ViolationCountInProgram(s) = 1 -> Sanction(s, Warning))",
+      "ForAll(s, ViolationCountInProgram(s) = 2 -> Sanction(s, Suspension1Sem))",
+      "ForAll(s, ViolationCountInProgram(s) >= 3 -> Sanction(s, Expulsion))",
+      "ForAll(s, ForAll(v, ExternalInstitutionViolation(s, v) -> Not(CountsTowardProgram(s, v)))",
+      "Violation(H, ThisUniv, 2024) ∧ Violation(H, ThisUniv, 2026)",
+      "Violation(H, PrevInst, 2023) ∧ ExternalInstitutionViolation(H, PrevInst-2023)"
+    ],
+    "questions": [
+      "What sanction applies to Student H now?\nA. Written warning\nB. One-semester suspension\nC. Expulsion\nD. No sanction"
+    ],
+    "answers": ["B"],
+    "explanation": [
+      "Rule 4 excludes the 2023 violation at the previous institution from this program's count. Within this program H now has two violations (2024 and 2026). Rule 2 applies: a second in-program violation triggers a one-semester suspension. Therefore the sanction is option B."
+    ]
+  },
+  {
+    "premises-NL": [
+      "A summer internship of at least 8 weeks may substitute for one 3-credit elective.",
+      "Substitution requires advisor approval prior to the internship start date.",
+      "Each student may use this substitution at most once during their degree.",
+      "Student I completed a 10-week internship and submitted advisor approval dated two weeks after the internship started.",
+      "Student I has not used this substitution before."
+    ],
+    "premises-FOL": [
+      "ForAll(s, (InternshipWeeks(s) >= 8 ∧ ApprovalBeforeStart(s) ∧ NotUsedBefore(s)) -> EligibleForSubstitution(s))",
+      "InternshipWeeks(I) = 10",
+      "Not(ApprovalBeforeStart(I))",
+      "NotUsedBefore(I)"
+    ],
+    "questions": [
+      "Can Student I claim the elective credit substitution?"
+    ],
+    "answers": ["No"],
+    "explanation": [
+      "Premise 1 makes the conjunction of three conditions necessary. InternshipWeeks(I)=10 satisfies the duration; NotUsedBefore(I) holds. But premise 4 says the approval was dated two weeks after the start, so ApprovalBeforeStart(I) is false. The conjunction fails, hence the substitution is not granted."
+    ]
+  },
+  {
+    "premises-NL": [
+      "A student may declare a second major if their cumulative GPA is at least 3.0 and they have completed at least one full year of coursework in their primary major.",
+      "Some second-major programs further require a minimum grade of B in two specified prerequisite courses.",
+      "The Computer Science second major requires a B or higher in MATH101 and MATH201.",
+      "Student J has cumulative GPA 3.4 and has completed three semesters in their primary Physics major.",
+      "Student J earned A- in MATH101 and B- in MATH201."
+    ],
+    "premises-FOL": [
+      "ForAll(s, (CumGPA(s) >= 3.0 ∧ YearsInPrimary(s) >= 1) -> BaseEligible(s))",
+      "ForAll(s, EligibleCS2nd(s) <-> (BaseEligible(s) ∧ Grade(s, MATH101) >= B ∧ Grade(s, MATH201) >= B))",
+      "CumGPA(J) = 3.4 ∧ YearsInPrimary(J) = 1.5",
+      "Grade(J, MATH101) = A- ∧ Grade(J, MATH201) = B-"
+    ],
+    "questions": [
+      "Can Student J declare Computer Science as a second major?"
+    ],
+    "answers": ["No"],
+    "explanation": [
+      "Base eligibility holds: GPA 3.4 >= 3.0 and 1.5 years in Physics >= 1. The CS-specific rule additionally requires Grade(J, MATH201) >= B. The actual grade is B-, which is below B. The conjunction in premise 2 therefore fails. CS second major is not allowed."
+    ]
+  },
+  {
+    "premises-NL": [
+      "Cum laude requires a final cumulative GPA of at least 3.50.",
+      "Magna cum laude requires at least 3.70.",
+      "Summa cum laude requires at least 3.90 AND a senior thesis with grade A.",
+      "Honors are awarded only to students who have completed at least 75% of their credits at this institution.",
+      "Student K has final GPA 3.92.",
+      "Student K wrote a senior thesis and received an A.",
+      "60% of Student K's credits were completed at this institution; the rest are transfer credits."
+    ],
+    "premises-FOL": [
+      "ForAll(s, AnyHonor(s) -> InHouseFraction(s) >= 0.75)",
+      "ForAll(s, GPA(s) >= 3.90 ∧ ThesisGrade(s) = A -> EligibleSumma(s))",
+      "GPA(K) = 3.92 ∧ ThesisGrade(K) = A ∧ InHouseFraction(K) = 0.60"
+    ],
+    "questions": [
+      "Which honor does Student K receive at graduation?\nA. Summa cum laude\nB. Magna cum laude\nC. Cum laude\nD. None"
+    ],
+    "answers": ["D"],
+    "explanation": [
+      "Premise 4 is a hard gate: any honor requires InHouseFraction >= 0.75. K has 0.60 < 0.75, so the antecedent of the contrapositive AnyHonor(s) fails for K. Even though K's GPA and thesis grade would otherwise meet the summa threshold, no honor is awarded. The answer is D."
+    ]
+  },
+  {
+    "premises-NL": [
+      "Late registration after the published deadline incurs a late fee unless the student presents documented medical or family-emergency reasons.",
+      "Documentation must be submitted within 14 days of the original deadline.",
+      "Student L registered 5 days after the deadline and submitted hospital admission records 10 days after the deadline."
+    ],
+    "premises-FOL": [
+      "ForAll(s, LateRegistered(s) ∧ Not(WaiverGranted(s)) -> OwesLateFee(s))",
+      "ForAll(s, (DocumentedReason(s) ∧ DocsWithin14Days(s)) -> WaiverGranted(s))",
+      "LateRegistered(L, 5days) ∧ DocumentedReason(L, Medical) ∧ DocsSubmittedAfter(L, 10days)"
+    ],
+    "questions": [
+      "Does Student L owe the late fee?\nA. Yes\nB. No\nC. Uncertain"
+    ],
+    "answers": ["B"],
+    "explanation": [
+      "Hospital admission qualifies as a documented medical reason (premise 1's exception). The 10-day submission is within the 14-day window required by premise 2, so DocsWithin14Days(L) holds. By premise 2 WaiverGranted(L), and by premise 1 the late fee is not owed. The answer is No (B)."
+    ]
+  },
+  {
+    "premises-NL": [
+      "A student is named to the Dean's List if their semester GPA is at least 3.7 AND they completed at least 12 graded credits that semester.",
+      "Pass/Fail credits do not count toward the 12-credit minimum.",
+      "Audited courses do not count toward any credit total.",
+      "Student M earned a semester GPA of 3.85 with 9 graded credits, 3 pass/fail credits, and 3 audited credits."
+    ],
+    "premises-FOL": [
+      "ForAll(s, (SemGPA(s) >= 3.7 ∧ GradedCredits(s) >= 12) -> DeansList(s))",
+      "GradedCredits(s) = TotalGraded(s) (excluding PF and Audit)",
+      "SemGPA(M) = 3.85 ∧ TotalGraded(M) = 9"
+    ],
+    "questions": [
+      "Is Student M named to the Dean's List this semester?"
+    ],
+    "answers": ["No"],
+    "explanation": [
+      "Per premises 2 and 3, only 9 graded credits count for M (pass/fail and audit are excluded). Premise 1 requires both GPA >= 3.7 (satisfied: 3.85) AND graded credits >= 12 (failed: 9 < 12). The conjunction fails, so M is not on the Dean's List."
+    ]
+  },
+  {
+    "premises-NL": [
+      "Students with no outstanding balance from prior terms may enroll in the tuition installment plan.",
+      "Students with an outstanding balance may enroll only after settling the balance.",
+      "International students must additionally provide a sponsor letter to enroll in the installment plan.",
+      "Student N is an international student with no outstanding balance and has provided a sponsor letter.",
+      "Student O is a domestic student with an outstanding balance from Spring 2026 that has not been paid."
+    ],
+    "premises-FOL": [
+      "ForAll(s, EnrollPlan(s) <-> (NoBalance(s) ∧ (International(s) -> SponsorLetter(s))))",
+      "International(N) ∧ NoBalance(N) ∧ SponsorLetter(N)",
+      "Domestic(O) ∧ Not(NoBalance(O))"
+    ],
+    "questions": [
+      "Which of N or O may currently enroll in the installment plan?\nA. Only N\nB. Only O\nC. Both\nD. Neither"
+    ],
+    "answers": ["A"],
+    "explanation": [
+      "For N: NoBalance(N) holds and the international branch is satisfied by SponsorLetter(N), so EnrollPlan(N). For O: Not(NoBalance(O)), the first conjunct of premise 1 fails, so EnrollPlan(O) is false. Hence only N may enroll — option A."
+    ]
+  },
+  {
+    "premises-NL": [
+      "A thesis committee must include the advisor, at least two faculty from the home department, and at least one external member from another department or institution.",
+      "The advisor counts as one of the home-department faculty if they belong to the home department.",
+      "External members may not chair the committee.",
+      "Student P's committee has: advisor (home dept), one home-dept professor, and one external professor (chair)."
+    ],
+    "premises-FOL": [
+      "ForAll(c, Compliant(c) <-> (HomeDeptCount(c) >= 2 ∧ ExternalCount(c) >= 1 ∧ Not(ExternalChair(c))))",
+      "Advisor(P) ∈ HomeDept ∧ |HomeDeptMembers(P)| = 2 ∧ |External(P)| = 1 ∧ Chair(P) ∈ External"
+    ],
+    "questions": [
+      "Is Student P's committee compliant with the rules?"
+    ],
+    "answers": ["No"],
+    "explanation": [
+      "HomeDeptCount = 2 (advisor + one home-dept professor) satisfies the minimum, and ExternalCount = 1 also satisfies. However the chair is the external member, violating premise 3 (Not(ExternalChair)). The conjunction in premise 1 fails, so the committee is not compliant."
+    ]
+  }
+]

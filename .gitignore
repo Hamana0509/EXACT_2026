@@ -1,0 +1,61 @@
+# Environment
+.env
+.env.*
+!.env.example
+
+# uv / virtualenv
+.venv/
+venv/
+env/
+
+# Python bytecode & build artifacts
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+*.egg
+build/
+dist/
+.eggs/
+
+# Caches
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.pyre/
+.pytype/
+.coverage
+.coverage.*
+htmlcov/
+.tox/
+.nox/
+
+# Project-specific
+test_result/
+logs/
+*.log
+
+# Claude
+CLAUDE.md
+.claude/
+
+# Jupyter / IPython
+.ipynb_checkpoints/
+*.ipynb_checkpoints
+
+# IDE / editors
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Secrets (extra safety)
+*.pem
+*.key
+secrets/
+credentials.json
